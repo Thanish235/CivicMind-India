@@ -1,0 +1,165 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0f172a; /* Charcoal (Slate 900) */
+  --foreground: #f8fafc; /* Slate 50 */
+
+  --card: #1e293b; /* Charcoal elevated (Slate 800) */
+  --card-foreground: #f8fafc;
+
+  --primary: #06b6d4; /* Neon Cyan */
+  --primary-glow: rgba(6, 182, 212, 0.15);
+
+  --accent-warning: #f59e0b; /* Amber */
+  --accent-success: #10b981; /* Emerald */
+  --accent-danger: #ef4444; /* Rose Red */
+  --accent-secondary: #8b5cf6; /* Violet */
+
+  --border: rgba(255, 255, 255, 0.08);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-slate-card: var(--card);
+  --color-neon-cyan: var(--primary);
+  --color-warning-amber: var(--accent-warning);
+  --color-success-emerald: var(--accent-success);
+  --color-danger-rose: var(--accent-danger);
+  --color-violet-accent: var(--accent-secondary);
+
+  --color-border-glass: var(--border);
+
+  /* Typography: Space Grotesk for display/headings, Inter for body/UI */
+  --font-sans: var(--font-inter), 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-space-grotesk), 'Space Grotesk', system-ui, sans-serif;
+
+  /* Sitewide motion: every transition-* utility resolves to this unless
+     a duration-* class overrides it — keeps all interactions in the
+     calm 200-300ms band instead of Tailwind's snappier 150ms default. */
+  --default-transition-duration: 250ms;
+  --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  background:
+    radial-gradient(circle at 12% -8%, rgba(6, 182, 212, 0.07), transparent 42%),
+    radial-gradient(circle at 88% 8%, rgba(139, 92, 246, 0.06), transparent 38%),
+    radial-gradient(circle at 50% 110%, rgba(16, 185, 129, 0.04), transparent 45%),
+    var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Headings always use the display face — applied at the element level so
+   every component automatically picks it up without per-instance classes. */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+/* Cyan -> violet gradient text for hero/brand moments */
+.text-gradient-brand {
+  background-image: linear-gradient(90deg, #22d3ee, #8b5cf6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Glassmorphism utility classes */
+.glass-panel {
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.glass-panel-glow {
+  background: rgba(30, 41, 59, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(6, 182, 212, 0.2);
+  box-shadow: 0 0 20px 0 rgba(6, 182, 212, 0.1);
+}
+
+.glass-card {
+  background: rgba(30, 41, 59, 0.5);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  background: rgba(30, 41, 59, 0.75);
+  border-color: rgba(6, 182, 212, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+.neon-glow {
+  box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* Leaflet dark theme map integration */
+.leaflet-container {
+  background: #0f172a !important;
+  border-radius: 12px;
+}
+
+.leaflet-tile {
+  filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) !important;
+}
+
+.leaflet-popup-content-wrapper {
+  background: #1e293b !important;
+  color: #f8fafc !important;
+  border: 1px solid rgba(6, 182, 212, 0.3) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+}
+
+.leaflet-popup-tip {
+  background: #1e293b !important;
+}
+
+/* Pulsing markers */
+@keyframes pulse-glow {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(6, 182, 212, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(6, 182, 212, 0);
+  }
+}
+
+.pulsing-dot {
+  animation: pulse-glow 2s infinite;
+}
